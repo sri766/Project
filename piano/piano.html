@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIANO</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="piano"> 
+		<div class=" white" data-note="C"><span>Q</span></div>
+		<div class=" black" data-note="C#"><span>1</span></div> 
+		<div class=" white" data-note="D"><span>W</span></div> 
+		<div class=" black" data-note="D#"><span>2</span></div> 
+		<div class=" white" data-note="E"><span>E</span></div> 
+		<div class=" white" data-note="F"><span>R</span></div> 
+		<div class=" black" data-note="F#"><span>3</span></div> 
+		<div class=" white" data-note="G"><span>T</span></div> 
+		<div class=" black" data-note="G#"><span>4</span></div> 
+		<div class=" white" data-note="A"><span>Y</span></div> 
+		<div class=" black" data-note="A#"><span>5</span></div> 
+		<div class=" white" data-note="B"><span>U</span></div> 
+
+		<div class=" white" data-note="C1"><span>Z</span></div> 
+		<div class=" black" data-note="C#1"><span>A</span></div> 
+		<div class=" white" data-note="D1"><span>X</span></div> 
+		<div class=" black" data-note="D#1"><span>D</span></div> 
+		<div class=" white" data-note="E1"><span>C</span></div> 
+		<div class=" white" data-note="F1"><span>V</span></div> 
+		<div class=" black" data-note="F#1"><span>G</span></div> 
+		<div class=" white" data-note="G1"><span>B</span></div> 
+		<div class=" black" data-note="G#1"><span>J</span></div> 
+		<div class=" white" data-note="A1"><span>N</span></div> 
+		<div class=" black" data-note="A#1"><span>L</span></div> 
+		<div class=" white" data-note="B1"><span>M</span></div> 
+
+	<div class='notes'>
+		<audio src="notes_C4.mp3" id="C"></audio>
+		<audio src="notes_Cs4.mp3" id="C#"></audio>
+        <audio src="notes_D4.mp3" id="D"></audio>
+        <audio src="notes_Ds4.mp3" id="D#"></audio>
+        <audio src="notes_E4.mp3" id="E"></audio>
+        <audio src="notes_F4.mp3" id="F"></audio>
+        <audio src="notes_Fs4.mp3" id="F#"></audio>
+        <audio src="notes_G4.mp3" id="G"></audio>
+        <audio src="notes_Gs4.mp3" id="G#"></audio>
+        <audio src="notes_A4.mp3" id="A"></audio>
+        <audio src="notes_As4.mp3" id="A#"></audio>
+        <audio src="notes_B4.mp3" id="B"></audio>
+
+        <audio src="mp3 Notes/piano-C5.mp3" id="C1"></audio>
+		<audio src="mp3 Notes/c-5.mp3" id="C#1"></audio>
+        <audio src="mp3 Notes/d5.mp3" id="D1"></audio>
+        <audio src="mp3 Notes/d-5.mp3" id="D#1"></audio>
+        <audio src="mp3 Notes/e5.mp3" id="E1"></audio>
+        <audio src="mp3 Notes/f5.mp3" id="F1"></audio>
+        <audio src="mp3 Notes/f-5.mp3" id="F#1"></audio>
+        <audio src="mp3 Notes/g5.mp3" id="G1"></audio>
+        <audio src="mp3 Notes/g-5.mp3" id="G#1"></audio>
+        <audio src="mp3 Notes/a5.mp3" id="A1"></audio>
+        <audio src="mp3 Notes/a-5.mp3" id="A#1"></audio>
+        <audio src="mp3 Notes/b5.mp3" id="B1"></audio>
+	</div>
+	<script>
+        const keys = document.querySelectorAll('.key');
+        const regulars = document.querySelectorAll('.white');
+        const sharps = document.querySelectorAll('.black');
+        const whites = ['q','w','e','r','t','y','u','z','x','c','v','b','n','m'];
+        const blacks = ['1','2','3','4','5','a','d','g','j','l'];
+
+        keys.forEach(key => {
+            key.addEventListener('click', () => playNote(key))
+        })
+
+        document.addEventListener('keydown', e => {
+            if (e.repeat) return
+            const key = e.key
+            const whiteKeyIndex = whites.indexOf(key)
+            const blackKeyIndex = blacks.indexOf(key)
+
+            if (whiteKeyIndex > -1) playNote(regulars[whiteKeyIndex])
+            if (blackKeyIndex > -1) playNote(sharps[blackKeyIndex])
+        })
+
+        let playNote = (key) => {
+            const noteSound = document.getElementById(key.dataset.note)
+            noteSound.currentTime = 0
+            noteSound.play()
+            key.classList.add('active')
+            noteSound.addEventListener('ended', () => {
+                key.classList.remove('active')
+            })
+        }
+    </script>
+
+</body>
+</html>
